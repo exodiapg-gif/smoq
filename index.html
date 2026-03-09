@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>El juego continúa</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+color:white;
+text-align:center;
+}
+
+.container{
+padding:40px;
+max-width:700px;
+margin:auto;
+}
+
+h1{
+font-size:36px;
+margin-bottom:20px;
+}
+
+p{
+font-size:20px;
+line-height:1.6;
+}
+
+.button{
+display:inline-block;
+margin-top:30px;
+padding:18px 35px;
+font-size:20px;
+background:#00ff88;
+border-radius:12px;
+text-decoration:none;
+color:black;
+font-weight:bold;
+}
+
+.button:hover{
+background:#00cc6a;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>⚽ El juego continúa más allá del campo</h1>
+
+<p>
+Colecciona la emoción y vive el fútbol como nunca antes.
+</p>
+
+<p>
+SMOQ Games 26 te permite abrir sobres, coleccionar cartas,
+crear plantillas y competir en desafíos inspirados en el fútbol real.
+</p>
+
+<p>
+Tu colección no termina en las cartas físicas.
+<br><br>
+<b>El juego continúa en el mundo digital.</b>
+</p>
+
+<a class="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
+
+</div>
+
+<script>
+
+function abrirApp(){
+
+var ua=navigator.userAgent.toLowerCase();
+
+if(ua.indexOf("android")>-1){
+window.location.href="market://details?id=com.smoqgames.smoqgames26";
+}else{
+window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
+}
+
+}
+
+</script>
+
+</body>
+</html>
