@@ -4,27 +4,39 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Abrir Sobre</title>
+<title>El juego continúa</title>
 
 <style>
 
 body{
 margin:0;
-background:radial-gradient(circle at center,#111,#000);
-font-family:Arial;
+background:radial-gradient(circle,#111,#000);
 color:white;
+font-family:Arial;
 display:flex;
 align-items:center;
 justify-content:center;
 height:100vh;
-overflow:hidden;
 text-align:center;
+overflow:hidden;
 }
 
-/* CONTENEDOR */
+/* ESCENAS */
 
-#stage{
-position:relative;
+.scene{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+transition:opacity 1s;
+}
+
+.hidden{
+opacity:0;
+pointer-events:none;
 }
 
 /* SOBRE */
@@ -32,12 +44,7 @@ position:relative;
 #pack{
 width:260px;
 cursor:pointer;
-animation:flotar 3s ease-in-out infinite;
-transition:0.5s;
-}
-
-#pack:hover{
-transform:scale(1.1);
+animation:flotar 3s infinite ease-in-out;
 }
 
 /* CARTA */
@@ -48,36 +55,17 @@ width:320px;
 animation:reveal 0.8s ease;
 }
 
-/* TEXTO */
-
-#text{
-margin-bottom:20px;
-font-size:22px;
-}
-
 /* BOTON */
 
-#button{
-display:none;
-margin-top:20px;
-padding:15px 35px;
+.button{
+margin-top:30px;
+padding:18px 40px;
 background:#00ff88;
 color:black;
 font-weight:bold;
-font-size:18px;
-border-radius:10px;
+font-size:20px;
+border-radius:12px;
 text-decoration:none;
-}
-
-/* EFECTO LUZ */
-
-#flash{
-position:fixed;
-width:100%;
-height:100%;
-background:white;
-opacity:0;
-pointer-events:none;
 }
 
 /* ANIMACIONES */
@@ -89,29 +77,50 @@ pointer-events:none;
 }
 
 @keyframes reveal{
-0%{transform:scale(0.4) rotate(-10deg); opacity:0}
+0%{transform:scale(0.3); opacity:0}
 100%{transform:scale(1); opacity:1}
 }
 
 </style>
-
 </head>
 
 <body>
 
-<div id="flash"></div>
+<!-- ESCENA 1 -->
 
-<div id="stage">
+<div id="scene1" class="scene">
 
-<h2 id="text">Toca el sobre para abrirlo</h2>
+<h2>Toca el sobre para abrirlo</h2>
 
 <img id="pack" src="sobre.png">
 
+</div>
+
+<!-- ESCENA 2 -->
+
+<div id="scene2" class="scene hidden">
+
+<h2 id="found">¡Carta encontrada!</h2>
+
 <img id="card">
 
-<br>
+</div>
 
-<a id="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
+<!-- ESCENA 3 FINAL -->
+
+<div id="scene3" class="scene hidden">
+
+<h1>⚽ El juego continúa más allá del campo</h1>
+
+<p>
+Colecciona la emoción y vive el fútbol como nunca antes.
+</p>
+
+<p>
+Descubre cartas, arma tu equipo y sigue jugando en el mundo digital.
+</p>
+
+<a class="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
 
 </div>
 
@@ -126,36 +135,32 @@ var cartas = [
 ];
 
 var pack = document.getElementById("pack");
-var flash = document.getElementById("flash");
-var card = document.getElementById("card");
-var text = document.getElementById("text");
-var button = document.getElementById("button");
 
 pack.onclick = function(){
 
-text.innerText="Abriendo sobre...";
-
-flash.style.opacity="1";
-
-setTimeout(function(){
-flash.style.opacity="0";
-},200);
+document.getElementById("scene1").classList.add("hidden");
 
 setTimeout(function(){
 
-pack.style.display="none";
+document.getElementById("scene2").classList.remove("hidden");
 
 var random = cartas[Math.floor(Math.random()*cartas.length)];
+
+var card = document.getElementById("card");
 
 card.src=random;
 
 card.style.display="block";
 
-text.innerText="¡Carta encontrada!";
+},600);
 
-button.style.display="inline-block";
+setTimeout(function(){
 
-},900);
+document.getElementById("scene2").classList.add("hidden");
+
+document.getElementById("scene3").classList.remove("hidden");
+
+},3500);
 
 };
 
