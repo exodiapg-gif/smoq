@@ -4,20 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>El juego continúa</title>
+<title>Pack Opening</title>
 
 <style>
 
 body{
 margin:0;
-background:radial-gradient(circle,#111,#000);
-color:white;
+background:black;
 font-family:Arial;
-display:flex;
-align-items:center;
-justify-content:center;
-height:100vh;
-text-align:center;
+color:white;
 overflow:hidden;
 }
 
@@ -39,20 +34,37 @@ opacity:0;
 pointer-events:none;
 }
 
+/* ESTADIO */
+
+#scene1{
+background:
+radial-gradient(circle at center,#111,#000);
+}
+
+/* TEXTO */
+
+.title{
+font-size:30px;
+margin-bottom:40px;
+letter-spacing:1px;
+}
+
 /* SOBRE */
 
 #pack{
 width:260px;
 cursor:pointer;
-animation:flotar 3s infinite ease-in-out;
+animation:float 3s infinite ease-in-out;
+filter:drop-shadow(0 0 25px #00aaff);
 }
 
 /* CARTA */
 
 #card{
 display:none;
-width:320px;
-animation:reveal 0.8s ease;
+width:340px;
+animation:cardReveal 1s ease;
+filter:drop-shadow(0 0 30px gold);
 }
 
 /* BOTON */
@@ -62,23 +74,40 @@ margin-top:30px;
 padding:18px 40px;
 background:#00ff88;
 color:black;
-font-weight:bold;
 font-size:20px;
+font-weight:bold;
 border-radius:12px;
 text-decoration:none;
 }
 
+/* PARTICULAS */
+
+.particle{
+position:absolute;
+width:6px;
+height:6px;
+background:white;
+border-radius:50%;
+opacity:0.6;
+animation:particle 4s linear infinite;
+}
+
 /* ANIMACIONES */
 
-@keyframes flotar{
+@keyframes float{
 0%{transform:translateY(0)}
 50%{transform:translateY(-15px)}
 100%{transform:translateY(0)}
 }
 
-@keyframes reveal{
-0%{transform:scale(0.3); opacity:0}
-100%{transform:scale(1); opacity:1}
+@keyframes cardReveal{
+0%{transform:scale(0.2) rotate(-10deg);opacity:0}
+100%{transform:scale(1);opacity:1}
+}
+
+@keyframes particle{
+0%{transform:translateY(0)}
+100%{transform:translateY(-100vh)}
 }
 
 </style>
@@ -86,38 +115,36 @@ text-decoration:none;
 
 <body>
 
-<!-- ESCENA 1 -->
+<!-- ESCENA SOBRE -->
 
 <div id="scene1" class="scene">
 
-<h2>Toca el sobre para abrirlo</h2>
+<div class="title">Una nueva carta te espera…</div>
 
 <img id="pack" src="sobre.png">
 
 </div>
 
-<!-- ESCENA 2 -->
+<!-- ESCENA CARTA -->
 
 <div id="scene2" class="scene hidden">
 
-<h2 id="found">¡Carta encontrada!</h2>
+<div class="title">¡Carta encontrada!</div>
 
 <img id="card">
 
 </div>
 
-<!-- ESCENA 3 FINAL -->
+<!-- ESCENA FINAL -->
 
 <div id="scene3" class="scene hidden">
 
 <h1>⚽ El juego continúa más allá del campo</h1>
 
-<p>
-Colecciona la emoción y vive el fútbol como nunca antes.
-</p>
-
-<p>
-Descubre cartas, arma tu equipo y sigue jugando en el mundo digital.
+<p style="font-size:20px">
+Colecciona la emoción.<br>
+Construye tu equipo.<br>
+Sigue jugando en el mundo digital.
 </p>
 
 <a class="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
@@ -152,7 +179,7 @@ card.src=random;
 
 card.style.display="block";
 
-},600);
+},700);
 
 setTimeout(function(){
 
@@ -160,7 +187,7 @@ document.getElementById("scene2").classList.add("hidden");
 
 document.getElementById("scene3").classList.remove("hidden");
 
-},3500);
+},4200);
 
 };
 
