@@ -3,137 +3,103 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El juego continúa</title>
+
+<title>Abrir Sobre</title>
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
 body{
-height:100vh;
+margin:0;
+background:black;
+color:white;
+font-family:Arial;
 display:flex;
 align-items:center;
 justify-content:center;
+height:100vh;
 text-align:center;
-color:white;
-background:
-linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
-url("https://images.unsplash.com/photo-1508098682722-e99c643e7f0b");
-background-size:cover;
-background-position:center;
 overflow:hidden;
 }
 
-/* CONTENEDOR */
-
-.container{
-max-width:700px;
-padding:40px;
-background:rgba(0,0,0,0.55);
-border-radius:20px;
-backdrop-filter:blur(6px);
-animation:fadeIn 1.2s ease;
+#pack{
+width:220px;
+cursor:pointer;
+transition:0.6s;
 }
 
-/* TITULO */
-
-h1{
-font-size:38px;
-margin-bottom:20px;
+#pack:hover{
+transform:scale(1.05);
 }
 
-/* TEXTO */
-
-p{
-font-size:20px;
-line-height:1.6;
-margin-bottom:15px;
+#card{
+display:none;
+width:300px;
 }
 
-/* BOTON */
-
-.button{
-display:inline-block;
-margin-top:25px;
-padding:18px 40px;
-font-size:20px;
-font-weight:bold;
+#button{
+display:none;
+margin-top:20px;
+padding:15px 30px;
 background:#00ff88;
 color:black;
-border-radius:12px;
+font-size:18px;
+border-radius:10px;
 text-decoration:none;
-transition:0.3s;
-}
-
-.button:hover{
-transform:scale(1.07);
-background:#00d977;
-}
-
-/* CARTAS FLOTANDO */
-
-.card{
-position:absolute;
-width:80px;
-opacity:0.15;
-animation:float 8s infinite linear;
-}
-
-.card:nth-child(1){left:10%; top:80%; animation-duration:12s;}
-.card:nth-child(2){left:80%; top:90%; animation-duration:10s;}
-.card:nth-child(3){left:50%; top:85%; animation-duration:14s;}
-.card:nth-child(4){left:30%; top:95%; animation-duration:11s;}
-
-@keyframes float{
-0%{transform:translateY(0) rotate(0deg);}
-100%{transform:translateY(-110vh) rotate(360deg);}
-}
-
-@keyframes fadeIn{
-from{opacity:0; transform:translateY(30px);}
-to{opacity:1; transform:translateY(0);}
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- CARTAS FLOTANTES -->
+<div id="stage">
 
-<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
-<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
-<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
-<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
+<h2 id="text">Toca el sobre para abrirlo</h2>
 
-<div class="container">
+<img id="pack" src="sobre.png">
 
-<h1>⚽ El juego continúa más allá del campo</h1>
+<img id="card">
 
-<p>
-Colecciona la emoción y vive el fútbol como nunca antes.
-</p>
+<br>
 
-<p>
-SMOQ Games 26 te permite abrir sobres, coleccionar cartas,
-crear plantillas y competir en desafíos inspirados en el fútbol real.
-</p>
-
-<p>
-Tu colección no termina en las cartas físicas.<br>
-<b>El juego continúa en el mundo digital.</b>
-</p>
-
-<a class="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
+<a id="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
 
 </div>
 
 <script>
+
+var cartas = [
+"bellingham.jpg",
+"vinicius.jpg",
+"llorente.jpg",
+"militao.jpg",
+"rodrygo.jpg"
+];
+
+document.getElementById("pack").onclick = function(){
+
+document.getElementById("text").innerText="Abriendo sobre...";
+
+setTimeout(function(){
+
+document.getElementById("pack").style.display="none";
+
+var random = cartas[Math.floor(Math.random()*cartas.length)];
+
+var card = document.getElementById("card");
+
+card.src=random;
+
+card.style.display="block";
+
+document.getElementById("text").innerText="¡Carta encontrada!";
+
+document.getElementById("button").style.display="inline-block";
+
+},1200);
+
+};
 
 function abrirApp(){
 
