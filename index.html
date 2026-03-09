@@ -1,56 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>El juego continúa</title>
 
 <style>
 
-body{
+*{
 margin:0;
-font-family:Arial;
-background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
-color:white;
-text-align:center;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
 }
+
+body{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+background:
+linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)),
+url("https://images.unsplash.com/photo-1508098682722-e99c643e7f0b");
+background-size:cover;
+background-position:center;
+overflow:hidden;
+}
+
+/* CONTENEDOR */
 
 .container{
-padding:40px;
 max-width:700px;
-margin:auto;
+padding:40px;
+background:rgba(0,0,0,0.55);
+border-radius:20px;
+backdrop-filter:blur(6px);
+animation:fadeIn 1.2s ease;
 }
 
+/* TITULO */
+
 h1{
-font-size:36px;
+font-size:38px;
 margin-bottom:20px;
 }
+
+/* TEXTO */
 
 p{
 font-size:20px;
 line-height:1.6;
+margin-bottom:15px;
 }
+
+/* BOTON */
 
 .button{
 display:inline-block;
-margin-top:30px;
-padding:18px 35px;
+margin-top:25px;
+padding:18px 40px;
 font-size:20px;
+font-weight:bold;
 background:#00ff88;
+color:black;
 border-radius:12px;
 text-decoration:none;
-color:black;
-font-weight:bold;
+transition:0.3s;
 }
 
 .button:hover{
-background:#00cc6a;
+transform:scale(1.07);
+background:#00d977;
+}
+
+/* CARTAS FLOTANDO */
+
+.card{
+position:absolute;
+width:80px;
+opacity:0.15;
+animation:float 8s infinite linear;
+}
+
+.card:nth-child(1){left:10%; top:80%; animation-duration:12s;}
+.card:nth-child(2){left:80%; top:90%; animation-duration:10s;}
+.card:nth-child(3){left:50%; top:85%; animation-duration:14s;}
+.card:nth-child(4){left:30%; top:95%; animation-duration:11s;}
+
+@keyframes float{
+0%{transform:translateY(0) rotate(0deg);}
+100%{transform:translateY(-110vh) rotate(360deg);}
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(30px);}
+to{opacity:1; transform:translateY(0);}
 }
 
 </style>
-
 </head>
 
 <body>
+
+<!-- CARTAS FLOTANTES -->
+
+<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
+<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
+<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
+<img class="card" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Soccer_ball.svg/1024px-Soccer_ball.svg.png">
 
 <div class="container">
 
@@ -66,8 +125,7 @@ crear plantillas y competir en desafíos inspirados en el fútbol real.
 </p>
 
 <p>
-Tu colección no termina en las cartas físicas.
-<br><br>
+Tu colección no termina en las cartas físicas.<br>
 <b>El juego continúa en el mundo digital.</b>
 </p>
 
