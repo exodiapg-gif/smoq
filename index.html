@@ -10,41 +10,87 @@
 
 body{
 margin:0;
-background:black;
-color:white;
+background:radial-gradient(circle at center,#111,#000);
 font-family:Arial;
+color:white;
 display:flex;
 align-items:center;
 justify-content:center;
 height:100vh;
-text-align:center;
 overflow:hidden;
+text-align:center;
 }
 
+/* CONTENEDOR */
+
+#stage{
+position:relative;
+}
+
+/* SOBRE */
+
 #pack{
-width:220px;
+width:260px;
 cursor:pointer;
-transition:0.6s;
+animation:flotar 3s ease-in-out infinite;
+transition:0.5s;
 }
 
 #pack:hover{
-transform:scale(1.05);
+transform:scale(1.1);
 }
+
+/* CARTA */
 
 #card{
 display:none;
-width:300px;
+width:320px;
+animation:reveal 0.8s ease;
 }
+
+/* TEXTO */
+
+#text{
+margin-bottom:20px;
+font-size:22px;
+}
+
+/* BOTON */
 
 #button{
 display:none;
 margin-top:20px;
-padding:15px 30px;
+padding:15px 35px;
 background:#00ff88;
 color:black;
+font-weight:bold;
 font-size:18px;
 border-radius:10px;
 text-decoration:none;
+}
+
+/* EFECTO LUZ */
+
+#flash{
+position:fixed;
+width:100%;
+height:100%;
+background:white;
+opacity:0;
+pointer-events:none;
+}
+
+/* ANIMACIONES */
+
+@keyframes flotar{
+0%{transform:translateY(0)}
+50%{transform:translateY(-15px)}
+100%{transform:translateY(0)}
+}
+
+@keyframes reveal{
+0%{transform:scale(0.4) rotate(-10deg); opacity:0}
+100%{transform:scale(1); opacity:1}
 }
 
 </style>
@@ -52,6 +98,8 @@ text-decoration:none;
 </head>
 
 <body>
+
+<div id="flash"></div>
 
 <div id="stage">
 
@@ -77,27 +125,37 @@ var cartas = [
 "rodrygo.jpg"
 ];
 
-document.getElementById("pack").onclick = function(){
+var pack = document.getElementById("pack");
+var flash = document.getElementById("flash");
+var card = document.getElementById("card");
+var text = document.getElementById("text");
+var button = document.getElementById("button");
 
-document.getElementById("text").innerText="Abriendo sobre...";
+pack.onclick = function(){
+
+text.innerText="Abriendo sobre...";
+
+flash.style.opacity="1";
+
+setTimeout(function(){
+flash.style.opacity="0";
+},200);
 
 setTimeout(function(){
 
-document.getElementById("pack").style.display="none";
+pack.style.display="none";
 
 var random = cartas[Math.floor(Math.random()*cartas.length)];
-
-var card = document.getElementById("card");
 
 card.src=random;
 
 card.style.display="block";
 
-document.getElementById("text").innerText="¡Carta encontrada!";
+text.innerText="¡Carta encontrada!";
 
-document.getElementById("button").style.display="inline-block";
+button.style.display="inline-block";
 
-},1200);
+},900);
 
 };
 
