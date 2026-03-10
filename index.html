@@ -28,12 +28,6 @@ display:flex;
 flex-direction:column;
 align-items:center;
 justify-content:center;
-transition:opacity 1s;
-}
-
-.hidden{
-opacity:0;
-pointer-events:none;
 }
 
 /* SOBRE */
@@ -110,19 +104,27 @@ animation:explode 1s forwards;
 /* BOTONES */
 
 .button{
-margin-top:20px;
-padding:16px 35px;
+margin-top:15px;
+padding:14px 30px;
 background:#00ff88;
 color:black;
-font-size:18px;
-border-radius:12px;
+font-size:16px;
+border-radius:10px;
 text-decoration:none;
 font-weight:bold;
+display:inline-block;
 }
 
 .secondary{
-background:#ffffff;
+background:white;
 color:black;
+}
+
+/* ICONOS */
+
+.icon{
+font-size:18px;
+margin-right:6px;
 }
 
 </style>
@@ -131,21 +133,15 @@ color:black;
 
 <body>
 
-<!-- ESCENA 1 -->
-
-<div id="scene1" class="scene">
+<div class="scene">
 
 <h2>TOCA EL SOBRE<br>PARA ABRIRLO</h2>
 
 <img id="pack" src="sobre.png">
 
-</div>
+<div id="card-area" style="display:none">
 
-<!-- ESCENA 2 -->
-
-<div id="scene2" class="scene hidden">
-
-<h2 id="found">¡Carta encontrada!</h2>
+<h2 id="found"></h2>
 
 <div class="card-container">
 
@@ -154,21 +150,23 @@ color:black;
 
 </div>
 
+</div>
+
 <br>
 
-<a class="button secondary" onclick="abrirOtro()">ABRIR OTRO SOBRE</a>
+<a class="button secondary" onclick="abrirOtro()">🎴 ABRIR OTRO SOBRE</a>
 
-<br><br>
+<br>
 
-<a class="button" href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26" target="_blank">
-DESCARGAR EL JUEGO
+<a class="button" onclick="descargarApp()">
+📱 DESCARGAR / JUGAR
 </a>
 
 </div>
 
 <script>
 
-var comunes = [
+var comunes=[
 "bellingham.jpg",
 "vinicius.jpg",
 "llorente.jpg",
@@ -176,34 +174,31 @@ var comunes = [
 "rodrygo.jpg"
 ];
 
-var epicas = [
+var epicas=[
 "epic2.png"
 ];
 
-var legendarias = [
+var legendarias=[
 "legendary1.png"
 ];
 
-var pack = document.getElementById("pack");
-var card = document.getElementById("card");
-var holo = document.querySelector(".holo");
+var pack=document.getElementById("pack");
+var card=document.getElementById("card");
+var holo=document.querySelector(".holo");
 
 pack.onclick=function(){
 
-document.getElementById("scene1").classList.add("hidden");
-
-setTimeout(function(){
-
-document.getElementById("scene2").classList.remove("hidden");
+document.getElementById("card-area").style.display="block";
 
 var random=Math.random();
 
 /* LEGENDARIA 20% */
 
-if(random < 0.20){
+if(random<0.20){
 
 card.src=legendarias[0];
 document.getElementById("found").innerText="¡CARTA LEGENDARIA!";
+
 card.style.filter="drop-shadow(0 0 40px gold)";
 holo.style.opacity="1";
 
@@ -213,20 +208,22 @@ crearParticulas();
 
 /* EPICA 30% */
 
-else if(random < 0.50){
+else if(random<0.50){
 
 card.src=epicas[0];
 document.getElementById("found").innerText="¡CARTA ÉPICA!";
+
 card.style.filter="drop-shadow(0 0 30px purple)";
 holo.style.opacity="0.6";
 
 }
 
-/* COMUN 50% */
+/* COMUN */
 
 else{
 
 card.src=comunes[Math.floor(Math.random()*comunes.length)];
+
 document.getElementById("found").innerText="Carta común";
 
 card.style.filter="none";
@@ -236,11 +233,9 @@ holo.style.opacity="0";
 
 card.style.display="block";
 
-},700);
-
 };
 
-/* PARTICULAS LEGENDARIAS */
+/* PARTICULAS */
 
 function crearParticulas(){
 
@@ -267,11 +262,30 @@ setTimeout(()=>p.remove(),1000);
 
 }
 
-/* ABRIR OTRO SOBRE */
+/* ABRIR OTRO */
 
 function abrirOtro(){
 
 location.reload();
+
+}
+
+/* DESCARGAR SEGUN DISPOSITIVO */
+
+function descargarApp(){
+
+var ua=navigator.userAgent.toLowerCase();
+
+if(ua.indexOf("android")>-1){
+
+window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
+
+}
+else{
+
+window.location.href="https://www.smoqgames.com/";
+
+}
 
 }
 
