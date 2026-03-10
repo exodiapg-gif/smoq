@@ -158,6 +158,12 @@ color:black;
 
 <a class="button secondary" onclick="abrirOtro()">ABRIR OTRO SOBRE</a>
 
+<br><br>
+
+<a class="button" href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26" target="_blank">
+DESCARGAR EL JUEGO
+</a>
+
 </div>
 
 <script>
@@ -192,11 +198,12 @@ document.getElementById("scene2").classList.remove("hidden");
 
 var random=Math.random();
 
-if(random < 0.05){
+/* LEGENDARIA 20% */
+
+if(random < 0.20){
 
 card.src=legendarias[0];
 document.getElementById("found").innerText="¡CARTA LEGENDARIA!";
-
 card.style.filter="drop-shadow(0 0 40px gold)";
 holo.style.opacity="1";
 
@@ -204,15 +211,18 @@ crearParticulas();
 
 }
 
-else if(random < 0.25){
+/* EPICA 30% */
+
+else if(random < 0.50){
 
 card.src=epicas[0];
 document.getElementById("found").innerText="¡CARTA ÉPICA!";
-
 card.style.filter="drop-shadow(0 0 30px purple)";
 holo.style.opacity="0.6";
 
 }
+
+/* COMUN 50% */
 
 else{
 
