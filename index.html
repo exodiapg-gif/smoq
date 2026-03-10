@@ -90,6 +90,23 @@ animation:holoMove 3s infinite linear;
 100%{background-position:100% 50%}
 }
 
+/* PARTICULAS */
+
+.particle{
+position:absolute;
+width:6px;
+height:6px;
+background:gold;
+border-radius:50%;
+pointer-events:none;
+animation:explode 1s forwards;
+}
+
+@keyframes explode{
+0%{transform:translate(0,0);opacity:1}
+100%{transform:translate(var(--x),var(--y));opacity:0}
+}
+
 /* BOTONES */
 
 .button{
@@ -143,22 +160,6 @@ color:black;
 
 </div>
 
-<!-- ESCENA 3 -->
-
-<div id="scene3" class="scene hidden">
-
-<h1>⚽ El juego continúa más allá del campo</h1>
-
-<p>Colecciona la emoción y continúa jugando.</p>
-
-<a class="button" onclick="abrirApp()">DESCARGAR EL JUEGO</a>
-
-<br>
-
-<a class="button secondary" onclick="abrirOtro()">ABRIR OTRO SOBRE</a>
-
-</div>
-
 <script>
 
 var comunes = [
@@ -193,17 +194,21 @@ var random=Math.random();
 
 if(random < 0.05){
 
-card.src=legendarias[Math.floor(Math.random()*legendarias.length)];
+card.src=legendarias[0];
 document.getElementById("found").innerText="¡CARTA LEGENDARIA!";
-card.style.filter="drop-shadow(0 0 35px gold)";
-holo.style.opacity="0.9";
+
+card.style.filter="drop-shadow(0 0 40px gold)";
+holo.style.opacity="1";
+
+crearParticulas();
 
 }
 
 else if(random < 0.25){
 
-card.src=epicas[Math.floor(Math.random()*epicas.length)];
+card.src=epicas[0];
 document.getElementById("found").innerText="¡CARTA ÉPICA!";
+
 card.style.filter="drop-shadow(0 0 30px purple)";
 holo.style.opacity="0.6";
 
@@ -213,6 +218,7 @@ else{
 
 card.src=comunes[Math.floor(Math.random()*comunes.length)];
 document.getElementById("found").innerText="Carta común";
+
 card.style.filter="none";
 holo.style.opacity="0";
 
@@ -224,19 +230,38 @@ card.style.display="block";
 
 };
 
+/* PARTICULAS LEGENDARIAS */
+
+function crearParticulas(){
+
+for(let i=0;i<25;i++){
+
+let p=document.createElement("div");
+
+p.className="particle";
+
+let x=(Math.random()*400-200)+"px";
+let y=(Math.random()*400-200)+"px";
+
+p.style.setProperty("--x",x);
+p.style.setProperty("--y",y);
+
+p.style.left="50%";
+p.style.top="50%";
+
+document.body.appendChild(p);
+
+setTimeout(()=>p.remove(),1000);
+
+}
+
+}
+
 /* ABRIR OTRO SOBRE */
 
 function abrirOtro(){
 
 location.reload();
-
-}
-
-/* ABRIR APP */
-
-function abrirApp(){
-
-window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
 
 }
 
