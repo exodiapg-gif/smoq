@@ -21,8 +21,6 @@ justify-content:center;
 height:100vh;
 }
 
-/* CONTENEDOR */
-
 .container{
 text-align:center;
 }
@@ -154,7 +152,7 @@ color:black;
 <br>
 
 <div class="button" onclick="descargarApp()">
-📱 DESCARGAR (Android) / 🍏 JUGAR (iOS)
+DESCARGAR EL JUEGO
 </div>
 
 </div>
@@ -279,9 +277,16 @@ if(ua.indexOf("android")>-1){
 window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
 
 }
+else if(ua.indexOf("iphone")>-1 || ua.indexOf("ipad")>-1){
+
+alert("⚽ Este juego está disponible solo en Android. Puedes verlo en Google Play.");
+
+window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
+
+}
 else{
 
-window.location.href="https://www.smoqgames.com/";
+window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
 
 }
 
