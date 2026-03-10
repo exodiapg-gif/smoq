@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pack Opening</title>
+<title>FC26 Pack Opening</title>
 
 <style>
 
@@ -13,6 +14,7 @@ margin:0;
 background:black;
 font-family:Arial;
 color:white;
+text-align:center;
 overflow:hidden;
 }
 
@@ -34,126 +36,132 @@ opacity:0;
 pointer-events:none;
 }
 
-/* ESTADIO */
-
-#scene1{
-background:
-radial-gradient(circle at center,#111,#000);
-}
-
-/* TEXTO */
-
-.title{
-font-size:30px;
-margin-bottom:40px;
-letter-spacing:1px;
-}
-
 /* SOBRE */
 
 #pack{
-width:260px;
+width:240px;
 cursor:pointer;
 animation:float 3s infinite ease-in-out;
-filter:drop-shadow(0 0 25px #00aaff);
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-12px)}
+100%{transform:translateY(0)}
 }
 
 /* CARTA */
 
-#card{
-display:none;
-width:340px;
-animation:cardReveal 1s ease;
-filter:drop-shadow(0 0 30px gold);
+.card-container{
+position:relative;
+display:inline-block;
 }
 
-/* BOTON */
+#card{
+width:320px;
+display:none;
+border-radius:12px;
+}
+
+/* HOLOGRAFICO */
+
+.holo{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border-radius:12px;
+pointer-events:none;
+opacity:0;
+mix-blend-mode:screen;
+background:linear-gradient(
+120deg,
+rgba(255,0,150,0.4),
+rgba(0,255,255,0.4),
+rgba(255,255,0,0.4)
+);
+background-size:300% 300%;
+animation:holoMove 3s infinite linear;
+}
+
+@keyframes holoMove{
+0%{background-position:0% 50%}
+100%{background-position:100% 50%}
+}
+
+/* BOTONES */
 
 .button{
-margin-top:30px;
-padding:18px 40px;
+margin-top:20px;
+padding:16px 35px;
 background:#00ff88;
 color:black;
-font-size:20px;
-font-weight:bold;
+font-size:18px;
 border-radius:12px;
 text-decoration:none;
+font-weight:bold;
 }
 
-/* PARTICULAS */
-
-.particle{
-position:absolute;
-width:6px;
-height:6px;
-background:white;
-border-radius:50%;
-opacity:0.6;
-animation:particle 4s linear infinite;
-}
-
-/* ANIMACIONES */
-
-@keyframes float{
-0%{transform:translateY(0)}
-50%{transform:translateY(-15px)}
-100%{transform:translateY(0)}
-}
-
-@keyframes cardReveal{
-0%{transform:scale(0.2) rotate(-10deg);opacity:0}
-100%{transform:scale(1);opacity:1}
-}
-
-@keyframes particle{
-0%{transform:translateY(0)}
-100%{transform:translateY(-100vh)}
+.secondary{
+background:#ffffff;
+color:black;
 }
 
 </style>
+
 </head>
 
 <body>
 
-<!-- ESCENA SOBRE -->
+<!-- ESCENA 1 -->
 
 <div id="scene1" class="scene">
 
-<div class="title">Una nueva carta te espera…</div>
+<h2>TOCA EL SOBRE<br>PARA ABRIRLO</h2>
 
 <img id="pack" src="sobre.png">
 
 </div>
 
-<!-- ESCENA CARTA -->
+<!-- ESCENA 2 -->
 
 <div id="scene2" class="scene hidden">
 
-<div class="title">¡Carta encontrada!</div>
+<h2 id="found">¡Carta encontrada!</h2>
+
+<div class="card-container">
 
 <img id="card">
+<div class="holo"></div>
 
 </div>
 
-<!-- ESCENA FINAL -->
+<br>
+
+<a class="button secondary" onclick="abrirOtro()">ABRIR OTRO SOBRE</a>
+
+</div>
+
+<!-- ESCENA 3 -->
 
 <div id="scene3" class="scene hidden">
 
 <h1>⚽ El juego continúa más allá del campo</h1>
 
-<p style="font-size:20px">
-Colecciona la emoción.<br>
-Construye tu equipo.<br>
-Sigue jugando en el mundo digital.
-</p>
+<p>Colecciona la emoción y continúa jugando.</p>
 
-<a class="button" onclick="abrirApp()">Abrir o Descargar el Juego</a>
+<a class="button" onclick="abrirApp()">DESCARGAR EL JUEGO</a>
+
+<br>
+
+<a class="button secondary" onclick="abrirOtro()">ABRIR OTRO SOBRE</a>
 
 </div>
 
 <script>
 
-var cartas = [
+var comunes = [
 "bellingham.jpg",
 "vinicius.jpg",
 "llorente.jpg",
@@ -161,9 +169,19 @@ var cartas = [
 "rodrygo.jpg"
 ];
 
-var pack = document.getElementById("pack");
+var epicas = [
+"epic2.png"
+];
 
-pack.onclick = function(){
+var legendarias = [
+"legendary1.png"
+];
+
+var pack = document.getElementById("pack");
+var card = document.getElementById("card");
+var holo = document.querySelector(".holo");
+
+pack.onclick=function(){
 
 document.getElementById("scene1").classList.add("hidden");
 
@@ -171,35 +189,54 @@ setTimeout(function(){
 
 document.getElementById("scene2").classList.remove("hidden");
 
-var random = cartas[Math.floor(Math.random()*cartas.length)];
+var random=Math.random();
 
-var card = document.getElementById("card");
+if(random < 0.05){
 
-card.src=random;
+card.src=legendarias[Math.floor(Math.random()*legendarias.length)];
+document.getElementById("found").innerText="¡CARTA LEGENDARIA!";
+card.style.filter="drop-shadow(0 0 35px gold)";
+holo.style.opacity="0.9";
+
+}
+
+else if(random < 0.25){
+
+card.src=epicas[Math.floor(Math.random()*epicas.length)];
+document.getElementById("found").innerText="¡CARTA ÉPICA!";
+card.style.filter="drop-shadow(0 0 30px purple)";
+holo.style.opacity="0.6";
+
+}
+
+else{
+
+card.src=comunes[Math.floor(Math.random()*comunes.length)];
+document.getElementById("found").innerText="Carta común";
+card.style.filter="none";
+holo.style.opacity="0";
+
+}
 
 card.style.display="block";
 
 },700);
 
-setTimeout(function(){
-
-document.getElementById("scene2").classList.add("hidden");
-
-document.getElementById("scene3").classList.remove("hidden");
-
-},4200);
-
 };
+
+/* ABRIR OTRO SOBRE */
+
+function abrirOtro(){
+
+location.reload();
+
+}
+
+/* ABRIR APP */
 
 function abrirApp(){
 
-var ua=navigator.userAgent.toLowerCase();
-
-if(ua.indexOf("android")>-1){
-window.location.href="market://details?id=com.smoqgames.smoqgames26";
-}else{
 window.location.href="https://play.google.com/store/apps/details?id=com.smoqgames.smoqgames26";
-}
 
 }
 
