@@ -15,19 +15,16 @@ background:black;
 font-family:Arial;
 color:white;
 text-align:center;
-overflow:hidden;
-}
-
-/* ESCENAS */
-
-.scene{
-position:absolute;
-width:100%;
-height:100%;
 display:flex;
-flex-direction:column;
 align-items:center;
 justify-content:center;
+height:100vh;
+}
+
+/* CONTENEDOR */
+
+.container{
+text-align:center;
 }
 
 /* SOBRE */
@@ -113,18 +110,12 @@ border-radius:10px;
 text-decoration:none;
 font-weight:bold;
 display:inline-block;
+cursor:pointer;
 }
 
 .secondary{
 background:white;
 color:black;
-}
-
-/* ICONOS */
-
-.icon{
-font-size:18px;
-margin-right:6px;
 }
 
 </style>
@@ -133,13 +124,13 @@ margin-right:6px;
 
 <body>
 
-<div class="scene">
+<div class="container">
 
-<h2>TOCA EL SOBRE<br>PARA ABRIRLO</h2>
+<h2 id="title">TOCA EL SOBRE<br>PARA ABRIRLO</h2>
 
 <img id="pack" src="sobre.png">
 
-<div id="card-area" style="display:none">
+<div id="card-area">
 
 <h2 id="found"></h2>
 
@@ -154,13 +145,19 @@ margin-right:6px;
 
 <br>
 
-<a class="button secondary" onclick="abrirOtro()">🎴 ABRIR OTRO SOBRE</a>
+<div id="buttons" style="display:none">
+
+<div class="button secondary" onclick="abrirOtro()">
+🎴 ABRIR OTRO SOBRE
+</div>
 
 <br>
 
-<a class="button" onclick="descargarApp()">
-📱 DESCARGAR / JUGAR
-</a>
+<div class="button" onclick="descargarApp()">
+📱 DESCARGAR (Android) / 🍏 JUGAR (iOS)
+</div>
+
+</div>
 
 </div>
 
@@ -188,11 +185,11 @@ var holo=document.querySelector(".holo");
 
 pack.onclick=function(){
 
-document.getElementById("card-area").style.display="block";
+pack.style.display="none";
 
 var random=Math.random();
 
-/* LEGENDARIA 20% */
+/* LEGENDARIA */
 
 if(random<0.20){
 
@@ -206,7 +203,7 @@ crearParticulas();
 
 }
 
-/* EPICA 30% */
+/* EPICA */
 
 else if(random<0.50){
 
@@ -223,7 +220,6 @@ holo.style.opacity="0.6";
 else{
 
 card.src=comunes[Math.floor(Math.random()*comunes.length)];
-
 document.getElementById("found").innerText="Carta común";
 
 card.style.filter="none";
@@ -232,6 +228,8 @@ holo.style.opacity="0";
 }
 
 card.style.display="block";
+
+document.getElementById("buttons").style.display="block";
 
 };
 
@@ -270,7 +268,7 @@ location.reload();
 
 }
 
-/* DESCARGAR SEGUN DISPOSITIVO */
+/* DESCARGAR APP */
 
 function descargarApp(){
 
